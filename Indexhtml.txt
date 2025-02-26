@@ -1,0 +1,38 @@
+const quizData = [
+    { question: "Ποια είναι η πρωτεύουσα της Ελλάδας;", answers: ["Αθήνα", "Θεσσαλονίκη", "Πάτρα", "Λάρισα"], correct: "Αθήνα" },
+    { question: "Ποιο είναι το σύμβολο του Pi Network;", answers: ["Π", "π", "𝝅", "II"], correct: "π" },
+    { question: "Πόσα γράμματα έχει το ελληνικό αλφάβητο;", answers: ["22", "24", "26", "27"], correct: "24" }
+];
+
+let currentQuestion = 0;
+
+function loadQuestion() {
+    const questionEl = document.querySelector(".question");
+    const answersEl = document.querySelector(".answers");
+    questionEl.textContent = quizData[currentQuestion].question;
+    answersEl.innerHTML = "";
+
+    quizData[currentQuestion].answers.forEach(answer => {
+        const btn = document.createElement("button");
+        btn.textContent = answer;
+        btn.classList.add("btn");
+        btn.onclick = () => checkAnswer(answer);
+        answersEl.appendChild(btn);
+    });
+}
+
+function checkAnswer(answer) {
+    if (answer === quizData[currentQuestion].correct) {
+        alert("Σωστά!");
+    } else {
+        alert("Λάθος. Η σωστή απάντηση είναι: " + quizData[currentQuestion].correct);
+    }
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+        loadQuestion();
+    } else {
+        alert("Τέλος παιχνιδιού!");
+    }
+}
+
+loadQuestion();
